@@ -1,11 +1,11 @@
-# My Personal Project
+# Main Menu Application
 
-## A subtitle
+## What is this project?
+This project simulates the functions of the main-menu or start-up screen of a video-game. It allows users to create
+new games, access saved games, and adjust video and audio settings.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+## Interest Behind Project
+Being an avid gamer my entire life, I've encountered all kinds of main title screens varying from 
+minimalistic designs to ones who favoured interactivity and complexity. However, my personal favourite main menu screens
+have always had two things in common: an **incredible graphical interface** and an **ease of navigation** between 
+various players modes and game settings.
