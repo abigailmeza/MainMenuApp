@@ -2,7 +2,7 @@
 
 ## What is this project?
 This project simulates the functions of the main-menu or start-up screen of a video-game. It allows users to create
-new games, access saved games, and adjust video and audio settings.
+new games, access saved games, and will later allow users to adjust video and audio settings.
 
 ## Interest Behind Project
 Being an avid gamer my entire life, I've encountered all kinds of main title screens varying from 

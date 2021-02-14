@@ -6,7 +6,6 @@ public class Game {
     private String level;             // difficulty level
 
     // REQUIRES: name has a non-zero length
-    //           no game can share the same name
     // EFFECTS: constructs a new game with given name and difficulty level set as "easy"
     public Game(String name) {
         this.name = name;

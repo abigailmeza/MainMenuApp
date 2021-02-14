@@ -2,26 +2,25 @@ package model;
 
 import java.util.ArrayList;
 
-public class Games {
-    private ArrayList<Game> savedGames;
+public class GameList {
+    ArrayList<Game> savedGames;
 
-    public Games() {
+    public GameList() {
         savedGames = new ArrayList<>();
     }
 
     // MODIFIES: this
     // EFFECTS: adds new game to savedGames
-    public void createNewGame(Game newGame) {
-        if (savedGames.isEmpty() || !hasSameName(newGame)) {
-            savedGames.add(newGame);
+    public void addGame(Game g) {
+        if (!savedGames.contains(g) && !hasGame(g.getName())) {
+            savedGames.add(g);
         }
     }
 
-    // EFFECTS: returns true if any game in savedGames has the same name as newGame
-    //          otherwise, returns false
-    public boolean hasSameName(Game newGame) {
-        for (Game g: savedGames) {
-            if (g.getName().equals(newGame.getName())) {
+    // EFFECTS: returns true if savedGames contains game with given name
+    public boolean hasGame(String name) {
+        for (Game g : savedGames) {
+            if (g.getName().equals(name)) {
                 return true;
             }
         }
@@ -48,6 +47,16 @@ public class Games {
     public void changeGameLevel(Integer i, String level) {
         Game g = savedGames.get(i);
         g.setLevel(level);
+    }
+
+    // EFFECTS: returns game in savedGames with given name
+    public Game getGameWithName(String name) {
+        for (Game g : savedGames) {
+            if (g.getName().equals(name)) {
+                return g;
+            }
+        }
+        return null;
     }
 
     // EFFECTS: returns number of games in savedGames

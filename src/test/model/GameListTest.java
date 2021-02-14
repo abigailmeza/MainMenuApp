@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GamesTest {
-    private Games games;
+public class GameListTest {
+    private GameList games;
     private Game g1;
     private Game g2;
     private Game g3;
 
     @BeforeEach
     public void runBefore() {
-        games = new Games();
+        games = new GameList();
         g1 = new Game("Game 1");
         g2 = new Game("Game 2");
         g3 = new Game("Game 3");
@@ -25,18 +25,18 @@ public class GamesTest {
     }
 
     @Test
-    public void testCreateNewGameOnce() {
+    public void testAddGameOnce() {
         assertEquals(0,games.size());
-        games.createNewGame(g1);
+        games.addGame(g1);
         assertEquals(1,games.size());
         assertTrue(games.contains(g1));
     }
 
     @Test
-    public void testCreateNewGameTwice() {
+    public void testAddGameTwice() {
         assertEquals(0,games.size());
-        games.createNewGame(g1);
-        games.createNewGame(g2);
+        games.addGame(g1);
+        games.addGame(g2);
 
         assertEquals(2,games.size());
         assertTrue(games.contains(g1));
@@ -44,31 +44,31 @@ public class GamesTest {
     }
 
     @Test
-    public void testCreateSameGame() {
+    public void testAddGameWithSameName() {
         Game sameGame = new Game("Game 1");
-        games.createNewGame(g1);
+        games.addGame(g1);
         assertTrue(games.contains(g1));
         assertEquals(1,games.size());
 
-        games.createNewGame(sameGame);
+        games.addGame(sameGame);
         assertTrue(games.contains(g1));
         assertFalse(games.contains(sameGame));
         assertEquals(1, games.size());
     }
 
     @Test
-    public void testCreateSameGameMultipleTimes() {
+    public void testAddGameWithSameNameMultipleTimes() {
         Game game = new Game("Game");
         Game otherGame = new Game("Other Game");
         Game game2 = new Game("Game");
         Game otherGame2 = new Game ("Other Game");
 
-        games.createNewGame(game);
-        games.createNewGame(otherGame);
+        games.addGame(game);
+        games.addGame(otherGame);
         assertEquals(2,games.size());
 
-        games.createNewGame(game2);
-        games.createNewGame(otherGame2);
+        games.addGame(game2);
+        games.addGame(otherGame2);
 
         assertTrue(games.contains(game));
         assertTrue(games.contains(otherGame));
@@ -78,21 +78,8 @@ public class GamesTest {
     }
 
     @Test
-    public void testHasSameName() {
-        Game g4 = new Game("Game 4");
-        Game sameGame = new Game("Game 3");
-
-        games.createNewGame(g1);
-        games.createNewGame(g2);
-        games.createNewGame(g3);
-
-        assertTrue(games.hasSameName(sameGame));
-        assertFalse(games.hasSameName(g4));
-    }
-
-    @Test
-    public void testDeleteNewGameOnce() {
-        games.createNewGame(g1);
+    public void testDeleteGameOnce() {
+        games.addGame(g1);
         assertTrue(games.contains(g1));
 
         games.deleteGame(g1);
@@ -100,10 +87,10 @@ public class GamesTest {
     }
 
     @Test
-    public void testDeleteNewGameTwice() {
-        games.createNewGame(g1);
-        games.createNewGame(g2);
-        games.createNewGame(g3);
+    public void testDeleteGameTwice() {
+        games.addGame(g1);
+        games.addGame(g2);
+        games.addGame(g3);
 
         assertTrue(games.contains(g1));
         assertTrue(games.contains(g2));
@@ -119,7 +106,7 @@ public class GamesTest {
 
     @Test
     public void testDeleteGameNotInList() {
-        games.createNewGame(g1);
+        games.addGame(g1);
         assertTrue(games.contains(g1));
 
         games.deleteGame(g2);
@@ -129,8 +116,8 @@ public class GamesTest {
 
     @Test
     public void testChangeGameName() {
-        games.createNewGame(g1);
-        games.createNewGame(g2);
+        games.addGame(g1);
+        games.addGame(g2);
 
         games.changeGameName(0,"New Name");
         assertEquals("New Name", g1.getName());
@@ -138,8 +125,8 @@ public class GamesTest {
 
     @Test
     public void testChangeGameNameTwice() {
-        games.createNewGame(g1);
-        games.createNewGame(g2);
+        games.addGame(g1);
+        games.addGame(g2);
 
         assertEquals("Game 1", g1.getName());
         games.changeGameName(0,"New Name");
@@ -149,13 +136,31 @@ public class GamesTest {
         assertEquals("Newer Name", g1.getName());
     }
 
+    // FUNCTIONS IDEAS: getGame returns Game, getGameWithName returns game or ma,e
+
     @Test
     public void testChangeGameLevel() {
-        games.createNewGame(g1);
-        games.createNewGame(g2);
+        games.addGame(g1);
+        games.addGame(g2);
 
         assertEquals("easy", g2.getLevel());
         games.changeGameLevel(1, "hard");
         assertEquals("hard", g2.getLevel());
+    }
+
+    @Test
+    public void testGetGameWithName() {
+        games.addGame(g1);
+        games.addGame(g2);
+        games.addGame(g3);
+
+        assertEquals(g3, games.getGameWithName("Game 3"));
+        assertEquals(g1, games.getGameWithName("Game 1"));
+    }
+
+    @Test
+    public void testGetGameWithNameNonExistent() {
+        games.addGame(g1);
+        assertEquals(null, games.getGameWithName("Fake Game"));
     }
 }
