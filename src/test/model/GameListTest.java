@@ -186,6 +186,17 @@ public class GameListTest {
     }
 
     @Test
+    public void testChangeGameLevelOfNonExistentGame() {
+        games.addGame(g1);
+        games.addGame(g2);
+        games.addGame(g3);
+
+        assertEquals("easy", g1.getLevel());
+        games.changeGameLevel("Game One", "hard");
+        assertEquals("easy", g1.getLevel());
+    }
+
+    @Test
     public void testGetGameWithName() {
         games.addGame(g1);
         games.addGame(g2);
@@ -196,7 +207,7 @@ public class GameListTest {
     }
 
     @Test
-    public void testGetGameWithNameNonExistent() {
+    public void testGetGameWithNameNonExistentGame() {
         games.addGame(g1);
         assertNull(games.getGameWithName("Fake Game"));
     }
