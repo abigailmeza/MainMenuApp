@@ -91,6 +91,18 @@ public class GameListTest {
     }
 
     @Test
+    public void testHasGameWithName() {
+        games.addGame(g1);
+        games.addGame(g2);
+        games.addGame(g3);
+
+        assertTrue(games.hasGameWithName("Game 3"));
+        assertTrue(games.hasGameWithName("Game 2"));
+        assertTrue(games.hasGameWithName("Game 1"));
+        assertFalse(games.hasGameWithName("Fake Game"));
+    }
+
+    @Test
     public void testDeleteGameOnce() {
         games.addGame(g1);
         assertTrue(games.contains(g1));
@@ -186,7 +198,7 @@ public class GameListTest {
     @Test
     public void testGetGameWithNameNonExistent() {
         games.addGame(g1);
-        assertEquals(null, games.getGameWithName("Fake Game"));
+        assertNull(games.getGameWithName("Fake Game"));
     }
 
     @Test

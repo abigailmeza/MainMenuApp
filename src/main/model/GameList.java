@@ -13,8 +13,10 @@ public class GameList {
     // MODIFIES: this
     // EFFECTS: adds game to savedGames if game does not have identical name in savedGames
     public void addGame(Game g) {
-        if (!hasGameWithName(g.getName()) && !savedGames.contains(g)) {
-            savedGames.add(g);
+        if (!savedGames.contains(g)) {
+            if (!hasGameWithName(g.getName())) {
+                savedGames.add(g);
+            }
         }
     }
 
