@@ -11,7 +11,8 @@ have always had two things in common: an **incredible graphical interface** and 
 various players modes and game settings.
 
 ##User Stories
-* As a user, I want to be able to create a new saved game and add it to a list of saved games
-* As a user, I want to be able to select a saved game and view the game in detail
-* As a user, I want to be able to select a saved game and change game difficulty
-* As a user, I want to be able to delete a saved game from a list of my saved games
+* As a user, I want to be able to create a new game and add it to a list of saved games
+* As a user, I want to be able to delete a game from a list of saved games
+* As a user, I want to be able to select a game from a list of saved games and change the saved game's difficulty level
+* As a user, I want to be able to select a game from a list of saved games and change the saved game's name
+
