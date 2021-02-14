@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameListTest {
@@ -78,6 +81,16 @@ public class GameListTest {
     }
 
     @Test
+    public void testAddGameIdenticalGame() {
+        assertEquals(0,games.size());
+        games.addGame(g1);
+        games.addGame(g1);
+
+        assertEquals(1,games.size());
+        assertTrue(games.contains(g1));
+    }
+
+    @Test
     public void testDeleteGameOnce() {
         games.addGame(g1);
         assertTrue(games.contains(g1));
@@ -119,7 +132,7 @@ public class GameListTest {
         games.addGame(g1);
         games.addGame(g2);
 
-        games.changeGameName(0,"New Name");
+        games.changeGameName("Game 1","New Name");
         assertEquals("New Name", g1.getName());
     }
 
@@ -129,23 +142,35 @@ public class GameListTest {
         games.addGame(g2);
 
         assertEquals("Game 1", g1.getName());
-        games.changeGameName(0,"New Name");
+        games.changeGameName("Game 1","New Name");
         assertEquals("New Name", g1.getName());
 
-        games.changeGameName(0,"Newer Name");
+        games.changeGameName("New Name","Newer Name");
         assertEquals("Newer Name", g1.getName());
     }
-
-    // FUNCTIONS IDEAS: getGame returns Game, getGameWithName returns game or ma,e
 
     @Test
     public void testChangeGameLevel() {
         games.addGame(g1);
         games.addGame(g2);
+        games.addGame(g3);
 
         assertEquals("easy", g2.getLevel());
-        games.changeGameLevel(1, "hard");
+        games.changeGameLevel("Game 2", "hard");
         assertEquals("hard", g2.getLevel());
+    }
+
+    @Test
+    public void testChangeGameLevelTwice() {
+        games.addGame(g1);
+        games.addGame(g2);
+        games.addGame(g3);
+
+        assertEquals("easy", g2.getLevel());
+        games.changeGameLevel("Game 2", "hard");
+        assertEquals("hard", g2.getLevel());
+        games.changeGameLevel("Game 3", "easy");
+        assertEquals("easy", g3.getLevel());
     }
 
     @Test
@@ -163,4 +188,35 @@ public class GameListTest {
         games.addGame(g1);
         assertEquals(null, games.getGameWithName("Fake Game"));
     }
+
+    @Test
+    public void testViewGameNamesOneName() {
+        ArrayList<String> gameNames = new ArrayList<>();
+        gameNames.add("Game 2");
+        games.addGame(g2);
+
+        assertEquals(gameNames, games.viewGameNames());
+    }
+
+    @Test
+    public void testViewGameNamesEmpty() {
+        ArrayList<String> gameNames = new ArrayList<>();
+
+        assertEquals(gameNames, games.viewGameNames());
+    }
+
+    @Test
+    public void testViewGameNamesMultipleNames() {
+        ArrayList<String> gameNames = new ArrayList<>();
+        gameNames.add("Game 3");
+        gameNames.add("Game 2");
+        gameNames.add("Game 1");
+
+        games.addGame(g3);
+        games.addGame(g2);
+        games.addGame(g1);
+
+        assertEquals(gameNames, games.viewGameNames());
+    }
+
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a list of saved games
 public class GameList {
     ArrayList<Game> savedGames;
 
@@ -10,15 +11,15 @@ public class GameList {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds new game to savedGames
+    // EFFECTS: adds game to savedGames if game does not have identical name in savedGames
     public void addGame(Game g) {
-        if (!savedGames.contains(g) && !hasGame(g.getName())) {
+        if (!hasGameWithName(g.getName()) && !savedGames.contains(g)) {
             savedGames.add(g);
         }
     }
 
     // EFFECTS: returns true if savedGames contains game with given name
-    public boolean hasGame(String name) {
+    public boolean hasGameWithName(String name) {
         for (Game g : savedGames) {
             if (g.getName().equals(name)) {
                 return true;
@@ -33,20 +34,24 @@ public class GameList {
         savedGames.remove(g);
     }
 
-    // REQUIRES: savedGames must have game at position i
-    // MODIFIES: this, Game g
-    // EFFECTS: changes g's name in savedGames at position i
-    public void changeGameName(Integer i, String name) {
-        Game g = savedGames.get(i);
-        g.setName(name);
+    // MODIFIES: this
+    // EFFECTS: changes game with given name to newName
+    public void changeGameName(String name, String newName) {
+        for (Game g : savedGames) {
+            if (hasGameWithName(name)) {
+                g.setName(newName);
+            }
+        }
     }
 
-    // REQUIRES: savedGames must have game at position i
-    // MODIFIES: this, Game g
-    // EFFECTS: changes g's difficulty level in savedGames at position i
-    public void changeGameLevel(Integer i, String level) {
-        Game g = savedGames.get(i);
-        g.setLevel(level);
+    // MODIFIES: this
+    // EFFECTS: changes game with given name's difficult level to lvl
+    public void changeGameLevel(String name, String lvl) {
+        for (Game g : savedGames) {
+            if (hasGameWithName(name)) {
+                g.setLevel(lvl);
+            }
+        }
     }
 
     // EFFECTS: returns game in savedGames with given name
@@ -59,12 +64,22 @@ public class GameList {
         return null;
     }
 
-    // EFFECTS: returns number of games in savedGames
+    // EFFECTS: returns a list of all the game names in savedGames
+    public ArrayList<String> viewGameNames() {
+        ArrayList<String> gameNames = new ArrayList<>();
+
+        for (Game g : savedGames) {
+            gameNames.add(g.getName());
+        }
+        return gameNames;
+    }
+
+    // EFFECTS: returns size of savedGames
     public int size() {
         return savedGames.size();
     }
 
-    // EFFECTS: returns true if g is in savedGames, otherwise false
+    // EFFECTS: returns true if g is in savedGames, otherwise returns false
     public boolean contains(Game g) {
         return savedGames.contains(g);
     }
