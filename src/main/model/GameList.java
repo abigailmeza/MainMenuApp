@@ -1,13 +1,31 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // Represents a list of saved games
-public class GameList {
-    ArrayList<Game> savedGames;
+public class GameList implements Writable {
+    private String name;
+    private ArrayList<Game> savedGames;
 
-    public GameList() {
+    public GameList(String name) {
+        this.name = name;
         savedGames = new ArrayList<>();
+    }
+
+    // EFFECTS: returns name of GameList
+    public String getGameListName() {
+        return name;
+    }
+
+    // EFFECTS: returns an unmodifiable list of games in this game list
+    public List<Game> getGames() {
+        return Collections.unmodifiableList(savedGames);
     }
 
     // MODIFIES: this
@@ -46,16 +64,6 @@ public class GameList {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: changes game with given name's difficult level to lvl
-    public void changeGameLevel(String name, String lvl) {
-        for (Game g : savedGames) {
-            if (hasGameWithName(name)) {
-                g.setLevel(lvl);
-            }
-        }
-    }
-
     // EFFECTS: returns game in savedGames with given name
     public Game getGameWithName(String name) {
         for (Game g : savedGames) {
@@ -71,7 +79,7 @@ public class GameList {
         ArrayList<String> gameNames = new ArrayList<>();
 
         for (Game g : savedGames) {
-            gameNames.add(g.getName());
+            gameNames.add(g.getName() + " [" + g.getLevel() + "]");
         }
         return gameNames;
     }
@@ -84,6 +92,24 @@ public class GameList {
     // EFFECTS: returns true if g is in savedGames, otherwise returns false
     public boolean contains(Game g) {
         return savedGames.contains(g);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("games", gamesToJson());
+        return json;
+    }
+
+    private JSONArray gamesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Game g : savedGames) {
+            jsonArray.put(g.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

@@ -10,13 +10,13 @@ class GameTest {
 
     @BeforeEach
     public void runBefore() {
-        g = new Game("Untitled");
+        g = new Game("Untitled", "Easy");
     }
 
     @Test
     public void testConstructor() {
         assertEquals("Untitled", g.getName());
-        assertEquals("easy", g.getLevel());
+        assertEquals("Easy", g.getLevel());
     }
 
     @Test
@@ -28,9 +28,9 @@ class GameTest {
 
     @Test
     public void testSetLevel() {
-        assertEquals("easy", g.getLevel());
-        g.setLevel("hard");
-        assertEquals("hard", g.getLevel());
+        assertEquals("Easy", g.getLevel());
+        g.setLevel("Hard");
+        assertEquals("Hard", g.getLevel());
     }
 
 

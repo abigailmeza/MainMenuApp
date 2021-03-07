@@ -16,15 +16,16 @@ public class GameListTest {
 
     @BeforeEach
     public void runBefore() {
-        games = new GameList();
-        g1 = new Game("Game 1");
-        g2 = new Game("Game 2");
-        g3 = new Game("Game 3");
+        games = new GameList("GameList");
+        g1 = new Game("Game 1", "Easy");
+        g2 = new Game("Game 2", "Easy");
+        g3 = new Game("Game 3", "Easy");
     }
 
     @Test
     public void testConstructor() {
         assertEquals(0, games.size());
+        assertEquals("GameList", games.getGameListName());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class GameListTest {
 
     @Test
     public void testAddGameWithSameName() {
-        Game sameGame = new Game("Game 1");
+        Game sameGame = new Game("Game 1", "Easy");
         games.addGame(g1);
         assertTrue(games.contains(g1));
         assertEquals(1,games.size());
@@ -61,10 +62,10 @@ public class GameListTest {
 
     @Test
     public void testAddGameWithSameNameMultipleTimes() {
-        Game game = new Game("Game");
-        Game otherGame = new Game("Other Game");
-        Game game2 = new Game("Game");
-        Game otherGame2 = new Game ("Other Game");
+        Game game = new Game("Game", "Easy");
+        Game otherGame = new Game("Other Game", "Easy");
+        Game game2 = new Game("Game", "Easy");
+        Game otherGame2 = new Game ("Other Game", "Easy");
 
         games.addGame(game);
         games.addGame(otherGame);
@@ -161,40 +162,6 @@ public class GameListTest {
         assertEquals("Newer Name", g1.getName());
     }
 
-    @Test
-    public void testChangeGameLevel() {
-        games.addGame(g1);
-        games.addGame(g2);
-        games.addGame(g3);
-
-        assertEquals("easy", g2.getLevel());
-        games.changeGameLevel("Game 2", "hard");
-        assertEquals("hard", g2.getLevel());
-    }
-
-    @Test
-    public void testChangeGameLevelTwice() {
-        games.addGame(g1);
-        games.addGame(g2);
-        games.addGame(g3);
-
-        assertEquals("easy", g2.getLevel());
-        games.changeGameLevel("Game 2", "hard");
-        assertEquals("hard", g2.getLevel());
-        games.changeGameLevel("Game 3", "easy");
-        assertEquals("easy", g3.getLevel());
-    }
-
-    @Test
-    public void testChangeGameLevelOfNonExistentGame() {
-        games.addGame(g1);
-        games.addGame(g2);
-        games.addGame(g3);
-
-        assertEquals("easy", g1.getLevel());
-        games.changeGameLevel("Game One", "hard");
-        assertEquals("easy", g1.getLevel());
-    }
 
     @Test
     public void testGetGameWithName() {
@@ -215,7 +182,7 @@ public class GameListTest {
     @Test
     public void testViewGameNamesOneName() {
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("Game 2");
+        gameNames.add("Game 2 [Easy]");
         games.addGame(g2);
 
         assertEquals(gameNames, games.viewGameNames());
@@ -231,9 +198,9 @@ public class GameListTest {
     @Test
     public void testViewGameNamesMultipleNames() {
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("Game 3");
-        gameNames.add("Game 2");
-        gameNames.add("Game 1");
+        gameNames.add("Game 3 [Easy]");
+        gameNames.add("Game 2 [Easy]");
+        gameNames.add("Game 1 [Easy]");
 
         games.addGame(g3);
         games.addGame(g2);

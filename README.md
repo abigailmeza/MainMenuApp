@@ -2,7 +2,7 @@
 
 ## What is this project?
 This project simulates the functions of the main-menu or start-up screen of a video-game. It allows users to create
-new games, access saved games, and will later allow users to adjust the video and audio settings.
+new games, and both access and delete saved games.
 
 ## Interest Behind Project
 Being an avid gamer my entire life, I've encountered all kinds of main title screens varying from 
@@ -17,3 +17,5 @@ various players modes and game settings.
 * As a user, I want to be able to select a game from a list of saved games and change the saved game's name
 * As a user, I want to be able to view my list of saved games
 
+* As a user, I want to be able to save my list of saved games to file
+* As a user, I want to be able to load my list of saved games from file

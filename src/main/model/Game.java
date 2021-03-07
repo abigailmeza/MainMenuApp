@@ -1,15 +1,18 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a saved game having a name, a game mode and a difficulty level
-public class Game {
+public class Game implements Writable {
     private String name;              // name of saved game
     private String level;             // difficulty level
 
     // REQUIRES: name has a non-zero length
     // EFFECTS: constructs a new game with given name and difficulty level set as "easy"
-    public Game(String name) {
+    public Game(String name, String level) {
         this.name = name;
-        level = "easy";
+        this.level = level;
     }
 
     // getters
@@ -30,4 +33,11 @@ public class Game {
         this.name = name;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("level", level);
+        return json;
+    }
 }
