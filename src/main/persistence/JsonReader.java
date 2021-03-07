@@ -1,6 +1,5 @@
 package persistence;
 
-import jdk.jfr.Category;
 import model.Game;
 import model.GameList;
 import org.json.*;
