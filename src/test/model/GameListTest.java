@@ -182,7 +182,7 @@ public class GameListTest {
     @Test
     public void testViewGameNamesOneName() {
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("Game 2 [Easy]");
+        gameNames.add("Game 2");
         games.addGame(g2);
 
         assertEquals(gameNames, games.viewGameNames());
@@ -198,9 +198,9 @@ public class GameListTest {
     @Test
     public void testViewGameNamesMultipleNames() {
         ArrayList<String> gameNames = new ArrayList<>();
-        gameNames.add("Game 3 [Easy]");
-        gameNames.add("Game 2 [Easy]");
-        gameNames.add("Game 1 [Easy]");
+        gameNames.add("Game 3");
+        gameNames.add("Game 2");
+        gameNames.add("Game 1");
 
         games.addGame(g3);
         games.addGame(g2);

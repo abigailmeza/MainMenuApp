@@ -1,17 +1,17 @@
 {
-    "name": "Saved Games",
+    "name": "saved games",
     "games": [
         {
             "level": "Easy",
-            "name": "Game1"
+            "name": "Game 1"
         },
         {
             "level": "Medium",
-            "name": "Game2"
+            "name": "Game 2"
         },
         {
             "level": "Hard",
-            "name": "Game3"
+            "name": "Game 3"
         }
     ]
 }

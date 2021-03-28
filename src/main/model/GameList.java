@@ -79,7 +79,7 @@ public class GameList implements Writable {
         ArrayList<String> gameNames = new ArrayList<>();
 
         for (Game g : savedGames) {
-            gameNames.add(g.getName() + " [" + g.getLevel() + "]");
+            gameNames.add(g.getName());
         }
         return gameNames;
     }
