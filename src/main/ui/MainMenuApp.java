@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.IllegalNameException;
 import model.Game;
 import model.GameList;
 import persistence.JsonReader;
@@ -20,7 +21,7 @@ public class MainMenuApp {
     private JsonReader jsonReader;
 
     // EFFECTS: constructs main menu and runs application
-    public MainMenuApp() throws FileNotFoundException {
+    public MainMenuApp() {
         input = new Scanner(System.in);
         savedGames = new GameList("My saved games");
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -185,7 +186,12 @@ public class MainMenuApp {
 
     // EFFECTS: allows user to create a new game
     private void createNewGame() {
-        Game g = new Game("Untitled", "Easy");
+        Game g = null;
+        try {
+            g = new Game("Untitled", "Easy");
+        } catch (IllegalNameException e) {
+            System.out.println("Game name can't be empty!");
+        }
         System.out.println("Name:");
         String name = input.next();
         if (savedGames.hasGameWithName(name)) {
@@ -237,6 +243,8 @@ public class MainMenuApp {
             System.out.println("Loaded " + savedGames.getGameListName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (IllegalNameException e) {
+            System.out.println("Game or level names cannot be empty");
         }
     }
 }

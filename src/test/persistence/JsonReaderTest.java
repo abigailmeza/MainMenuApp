@@ -1,7 +1,9 @@
 package persistence;
 
+import exceptions.IllegalNameException;
 import model.Game;
 import model.GameList;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,7 +22,9 @@ public class JsonReaderTest extends JsonTest {
             GameList gl = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
-            // pass
+            //
+        } catch (IllegalNameException e) {
+            fail("Exception should not be thrown");
         }
     }
 
@@ -33,6 +37,8 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(0, gl.size());
         } catch (IOException e) {
             fail("Couldn't read from file");
+        } catch (IllegalNameException e) {
+            fail("Exception should not be thrown");
         }
     }
 
@@ -48,6 +54,21 @@ public class JsonReaderTest extends JsonTest {
             checkGame("Game 2", "Easy", savedGames.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
+        } catch (IllegalNameException e) {
+            fail("Exception should not be thrown");
+        }
+    }
+
+    @Test
+    void testReaderEmptyStringGameList() {
+        JsonReader reader = new JsonReader("./data/testReaderEmptyStringGameList.json");
+        try {
+            GameList gl = reader.read();
+            fail("IllegalNameException should have been thrown");
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        } catch (IllegalNameException e) {
+            //
         }
     }
 }

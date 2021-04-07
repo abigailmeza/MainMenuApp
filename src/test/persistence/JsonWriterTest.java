@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.IllegalNameException;
 import model.Game;
 import model.GameList;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(0, gl.size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (IllegalNameException e) {
+            System.out.println("Game or level names cannot be empty");
         }
     }
 
@@ -63,9 +66,8 @@ public class JsonWriterTest extends JsonTest {
             checkGame("Game 1", "Easy", savedGames.get(0));
             checkGame("Game 2", "Easy", savedGames.get(1));
 
-        } catch (IOException e) {
+        } catch (IOException | IllegalNameException e){
             fail("Exception should not have been thrown");
         }
     }
-
 }

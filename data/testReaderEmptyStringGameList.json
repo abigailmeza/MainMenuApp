@@ -1,0 +1,13 @@
+{
+    "name": "My saved games",
+    "games": [
+        {
+            "level": "Easy",
+            "name": ""
+        },
+        {
+            "level": "Easy",
+            "name": "Game 2"
+        }
+    ]
+}

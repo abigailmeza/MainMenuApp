@@ -1,9 +1,9 @@
 package model;
 
+import exceptions.IllegalNameException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,9 +17,13 @@ public class GameListTest {
     @BeforeEach
     public void runBefore() {
         games = new GameList("GameList");
-        g1 = new Game("Game 1", "Easy");
-        g2 = new Game("Game 2", "Easy");
-        g3 = new Game("Game 3", "Easy");
+        try {
+            g1 = new Game("Game 1", "Easy");
+            g2 = new Game("Game 2", "Easy");
+            g3 = new Game("Game 3", "Easy");
+        } catch (IllegalNameException e) {
+            fail();
+        }
     }
 
     @Test
@@ -49,36 +53,44 @@ public class GameListTest {
 
     @Test
     public void testAddGameWithSameName() {
-        Game sameGame = new Game("Game 1", "Easy");
-        games.addGame(g1);
-        assertTrue(games.contains(g1));
-        assertEquals(1,games.size());
+        try {
+            Game sameGame = new Game("Game 1", "Easy");
+            games.addGame(g1);
+            assertTrue(games.contains(g1));
+            assertEquals(1,games.size());
 
-        games.addGame(sameGame);
-        assertTrue(games.contains(g1));
-        assertFalse(games.contains(sameGame));
-        assertEquals(1, games.size());
+            games.addGame(sameGame);
+            assertTrue(games.contains(g1));
+            assertFalse(games.contains(sameGame));
+            assertEquals(1, games.size());
+        } catch (IllegalNameException e) {
+            fail();
+        }
     }
 
     @Test
     public void testAddGameWithSameNameMultipleTimes() {
-        Game game = new Game("Game", "Easy");
-        Game otherGame = new Game("Other Game", "Easy");
-        Game game2 = new Game("Game", "Easy");
-        Game otherGame2 = new Game ("Other Game", "Easy");
+        try {
+            Game game = new Game("Game", "Easy");
+            Game otherGame = new Game("Other Game", "Easy");
+            Game game2 = new Game("Game", "Easy");
+            Game otherGame2 = new Game ("Other Game", "Easy");
 
-        games.addGame(game);
-        games.addGame(otherGame);
-        assertEquals(2,games.size());
+            games.addGame(game);
+            games.addGame(otherGame);
+            assertEquals(2,games.size());
 
-        games.addGame(game2);
-        games.addGame(otherGame2);
+            games.addGame(game2);
+            games.addGame(otherGame2);
 
-        assertTrue(games.contains(game));
-        assertTrue(games.contains(otherGame));
-        assertFalse(games.contains(game2));
-        assertFalse(games.contains(otherGame2));
-        assertEquals(2, games.size());
+            assertTrue(games.contains(game));
+            assertTrue(games.contains(otherGame));
+            assertFalse(games.contains(game2));
+            assertFalse(games.contains(otherGame2));
+            assertEquals(2, games.size());
+        } catch (IllegalNameException e) {
+            fail();
+        }
     }
 
     @Test

@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.IllegalNameException;
 import model.Game;
 import model.GameList;
 import persistence.JsonReader;
@@ -94,7 +95,11 @@ public class MainMenuGUI extends JFrame implements ActionListener, ListSelection
         CreateListener createListener = new CreateListener(createButton);
 
         createButton.addActionListener(createListener);
-        savedGames.addGame(new Game(gameName.getText(), "Easy"));
+        try {
+            savedGames.addGame(new Game(gameName.getText(), "Easy"));
+        } catch (IllegalNameException e) {
+            System.out.println("Name can't be empty!");
+        }
         createButton.addActionListener(createListener);
         createButton.setEnabled(false);
         gameName.addActionListener(createListener);
@@ -270,6 +275,8 @@ public class MainMenuGUI extends JFrame implements ActionListener, ListSelection
             System.out.println("Loaded " + savedGames.getGameListName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (IllegalNameException e) {
+            System.out.println("Game and/or level names cannot be empty");
         }
     }
 
@@ -281,7 +288,8 @@ public class MainMenuGUI extends JFrame implements ActionListener, ListSelection
             for (int i = 0; i < listModel.size(); i++) {
                 String currentGameName = listModel.getElementAt(i).toString();
                 if (!savedGames.hasGameWithName(currentGameName)) {
-                    newSavedGames.addGame(new Game(currentGameName, "Easy"));
+                    Game newGame = new Game(currentGameName);
+                    newSavedGames.addGame(newGame);
                 } else {
                     newSavedGames.addGame(savedGames.getGameWithName(currentGameName));
                 }
@@ -293,6 +301,8 @@ public class MainMenuGUI extends JFrame implements ActionListener, ListSelection
             System.out.println("Saved " + savedGames.getGameListName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (IllegalNameException e) {
+            System.out.println("Game name can't be empty!");
         }
     }
 

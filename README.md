@@ -19,3 +19,9 @@ various players modes and game settings.
 
 * As a user, I want to be able to save my list of saved games to file
 * As a user, I want to be able to load my list of saved games from file
+
+## Phase 4: Task 2
+Test and design a class in your model package that is robust
+##### Methods:
+* Game (both constructors in Game class)
+* addGame (in JsonReader class)

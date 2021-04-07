@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.IllegalNameException;
 import model.Game;
 import model.GameList;
 import org.json.*;
@@ -22,7 +23,7 @@ public class JsonReader {
 
     // EFFECTS: reads game list from file and returns it;
     //          throws IOException if an error occurs reading data from file
-    public GameList read() throws IOException {
+    public GameList read() throws IOException, IllegalNameException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseGameList(jsonObject);
@@ -40,7 +41,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses game list from Json object and returns it
-    private GameList parseGameList(JSONObject jsonObject) {
+    private GameList parseGameList(JSONObject jsonObject) throws IllegalNameException {
         String name = jsonObject.getString("name");
         GameList gl = new GameList(name);
         addGames(gl, jsonObject);
@@ -49,7 +50,7 @@ public class JsonReader {
 
     // REQUIRES: gl
     // EFFECTS: parses games from JSON object and adds them to game list
-    private void addGames(GameList gl, JSONObject jsonObject) {
+    private void addGames(GameList gl, JSONObject jsonObject) throws IllegalNameException {
         JSONArray jsonArray = jsonObject.getJSONArray("games");
         for (Object json : jsonArray) {
             JSONObject nextGame = (JSONObject) json;
@@ -59,10 +60,15 @@ public class JsonReader {
 
     // MODIFIES: gl
     // EFFECTS: parses game from JSON object and adds it to workroom
-    private void addGame(GameList gl, JSONObject jsonObject) {
+    private void addGame(GameList gl, JSONObject jsonObject) throws IllegalNameException {
         String name = jsonObject.getString("name");
         String level = jsonObject.getString("level");
-        Game game = new Game(name, level);
-        gl.addGame(game);
+
+        if (name.equals("")) {
+            throw new IllegalNameException();
+        } else {
+            Game game = new Game(name, level);
+            gl.addGame(game);
+        }
     }
 }
