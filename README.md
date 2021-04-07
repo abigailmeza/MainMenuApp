@@ -13,10 +13,7 @@ various players modes and game settings.
 ## User Stories
 * As a user, I want to be able to create a new game and add it to a list of saved games
 * As a user, I want to be able to delete a game from a list of saved games
-* As a user, I want to be able to select a game from a list of saved games and change the saved game's difficulty level
-* As a user, I want to be able to select a game from a list of saved games and change the saved game's name
 * As a user, I want to be able to view my list of saved games
-
 * As a user, I want to be able to save my list of saved games to file
 * As a user, I want to be able to load my list of saved games from file
 
@@ -25,3 +22,10 @@ Test and design a class in your model package that is robust
 ##### Methods:
 * Game (both constructors in Game class)
 * addGame (in JsonReader class)
+
+## Phase 4: Task 3
+ If you had more time to work on the project, is there any refactoring
+  that you would do to improve your design?
+  * With more time, I would increase the cohesion of my ui package, specifically in the MainMenuGUI class.
+   The class contains more than one single responsibility when it comes to creating the various panels and buttons
+   for the JFrame.
